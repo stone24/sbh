@@ -1,0 +1,34 @@
+//
+//  SHBTabbarController.m
+//  sbh
+//
+//  Created by SBH on 14-12-1.
+//  Copyright (c) 2014年 shenbianhui. All rights reserved.
+//
+
+#import "SHBTabbarController.h"
+#import "ServerFactory.h"
+#import "MessageServer.h"
+
+@interface SHBTabbarController ()
+@end
+
+@implementation SHBTabbarController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    //获得选中的item
+    NSUInteger tabIndex = [tabBar.items indexOfObject:item];
+    if (tabIndex == 1) {
+        [MobClick event:@"DD0001"];
+    } else if (tabIndex == 3){
+        [MobClick event:@"MY0001"];
+    }
+}
+@end

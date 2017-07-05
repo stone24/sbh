@@ -1,0 +1,26 @@
+//
+//  BeHomePageInfoAndBannerCell.h
+//  sbh
+//
+//  Created by RobinLiu on 15/4/27.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "HomeBannerView.h"
+#import "SBHUserModel.h"
+#import "BeHomePageHeightItem.h"
+
+@protocol BeHomePageBannerCellDelegate;
+@interface BeHomePageInfoAndBannerCell : UITableViewCell<HomeBannerDelegate>
++ (CGFloat)cellHeight;
+- (void)setCellSubviewsWith:(NSArray *)imageArray andUserInfo:(SBHUserModel *)info;
+@property (nonatomic,assign)id<BeHomePageBannerCellDelegate>delegate;
++ (instancetype)cellWithTableView:(UITableView *)tableView;
+@end
+
+@protocol BeHomePageBannerCellDelegate <NSObject>
+
+- (void)bannerDidClickWithUrlString:(NSString*)urlString;
+
+@end

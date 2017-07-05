@@ -1,0 +1,16 @@
+platform :ios ,'7.1'
+target 'sbh' do
+ pod 'AFNetworking','~> 3.1.0'
+ pod 'UMengAnalytics-NO-IDFA'
+ pod 'JPush'
+ pod 'JSONKit-NoWarning'
+ pod 'IQKeyboardManager'
+ pod 'SDWebImage','~> 3.7'
+ pod 'FMDB'
+ pod 'MJRefresh'
+ pod 'MWPhotoBrowser','~> 2.1.2'
+ pod 'MJExtension'
+ pod 'AMap2DMap-NO-IDFA'
+ pod 'AMapLocation-NO-IDFA'
+ pod 'SBHCommonTools',:svn=>'http://liuxiaodan@192.168.10.26/svn/SBH_APP/IOS/trunk/SBHCommonTools/',:tag=>'1.9'
+end

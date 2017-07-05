@@ -1,0 +1,316 @@
+//
+//  ticketReserveViewController.m
+//  SBHAPP
+//
+//  Created by musmile on 14-6-9.
+//  Copyright (c) 2014年 shenbianhui. All rights reserved.
+//
+
+#import "ticketReserveViewController.h"
+#import "TicketReserveSelectCityCell.h"
+#import "TicketReserveSelectCabinCell.h"
+#import "TicketReserveSelectDateCell.h"
+#import "BeFlightTicketListViewController.h"
+#import "BeChooseCityViewController.h"
+#import "CalendarHomeViewController.h"
+#import "TicketOrderInfo.h"
+#import "UIActionSheet+Block.h"
+#import "BeTicketReserveSelectTripCell.h"
+#import "ColorConfigure.h"
+
+@interface ticketReserveViewController ()
+{
+    NSString *strdanshuan;
+}
+
+@end
+
+@implementation ticketReserveViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+    
+    }
+    return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if([GlobalData getSharedInstance].userModel.isLogin && [GlobalData getSharedInstance].userModel.isEnterpriseUser)
+    {
+        [GlobalData getSharedInstance].iTiketOrderInfo.travelReason = kTravelReasonTypeOnBusiness;
+    }
+    else
+    {
+        [GlobalData getSharedInstance].iTiketOrderInfo.travelReason = kTravelReasonTypePrivate;
+    }
+    [self.tableView reloadData];
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title = @"机票预订";
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.separatorColor = [UIColor clearColor];
+    [self customFooterView];
+    [GlobalData getSharedInstance].iSdancheng = @"OW";
+    [GlobalData getSharedInstance].iTiketOrderInfo = [[TicketOrderInfo alloc] init];
+    strdanshuan = @"1";
+    [GlobalData getSharedInstance].DANSHUAN = strdanshuan;
+    [GlobalData getSharedInstance].iTiketOrderInfo.iAirCompany = @"全部" ;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+- (void)customFooterView
+{
+    UIView *tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
+    UIButton *inquireButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    inquireButton.frame = CGRectMake(15, 30, self.tableView.frame.size.width-30, 40);
+    inquireButton.layer.cornerRadius = 4.0f;
+    [inquireButton addTarget:self action:@selector(ticketInquiry) forControlEvents:UIControlEventTouchUpInside];
+    [inquireButton setBackgroundColor:[ColorConfigure loginButtonColor]];
+    [inquireButton setTitle:@"查询机票" forState:UIControlStateNormal];
+    [tableFooterView addSubview:inquireButton];
+    self.tableView.tableFooterView = tableFooterView;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if([GlobalData getSharedInstance].userModel.isLogin && [GlobalData getSharedInstance].userModel.isEnterpriseUser)
+    {
+        return 5;
+    }
+    return 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 2)
+    {
+        return 94;
+    }
+    else if(indexPath.row == 1)
+    {
+        return 84;
+    }
+    else if(indexPath.row == 0)
+    {
+        return [BeTicketReserveSelectTripCell cellHeight];
+    }
+    return 75;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0)
+    {
+        BeTicketReserveSelectTripCell *cell = [BeTicketReserveSelectTripCell cellWithTableView:tableView];
+        [cell setCellWithItem:[GlobalData getSharedInstance].iTiketOrderInfo];
+        [cell addTarget:self andOneWayAction:@selector(oneWayAction) andRoundAction:@selector(roundTripAction)];
+        return cell;
+    }
+    if (indexPath.row==1)
+    {
+        TicketReserveSelectCityCell *cell = [TicketReserveSelectCityCell cellWithTableView:tableView];
+        [cell setCellWith:[GlobalData getSharedInstance].iTiketOrderInfo];
+        [cell addTarget:self andDepartureAction:@selector(selectDepartureCityAction) andReachAction:@selector(selectReachCityAction) andOverturnAction:@selector(exchangeCityAction)];
+        return cell;
+    }
+    if (indexPath.row == 2)
+    {
+        TicketReserveSelectDateCell *cell = [TicketReserveSelectDateCell cellWithTableView:tableView];
+        [cell addTarget:self andDepartureDateAction:@selector(selectStartTime:) andReachDateAction:@selector(selectArriveTime:)];
+        [cell setCellWith:[GlobalData getSharedInstance].iTiketOrderInfo];
+        return cell;
+    }
+    if (indexPath.row==3)
+    {
+        TicketReserveSelectCabinCell *cell = [TicketReserveSelectCabinCell cellWithTableView:tableView];
+        cell.toudengcang.text = [GlobalData getSharedInstance].iTiketOrderInfo.aircraftCabin;
+        cell.displayType =  kCellDisplayTypeCabin;
+        return cell;
+    }
+    if (indexPath.row==4)
+    {
+        TicketReserveSelectCabinCell *cell = [TicketReserveSelectCabinCell cellWithTableView:tableView];
+        if([GlobalData getSharedInstance].userModel.isLogin && [GlobalData getSharedInstance].userModel.isEnterpriseUser)
+        {
+            cell.ArrowIcon.hidden = NO;
+        }
+        else
+        {
+            cell.ArrowIcon.hidden = YES;
+        }
+        cell.displayType = kCellDisplayTypeReason;
+        cell.toudengcang.text = [GlobalData getSharedInstance].iTiketOrderInfo.travelReasonString;
+        return cell;
+    }
+    return nil;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row==3)
+    {
+        [self selectAircraftCabinAction];
+    } else if (indexPath.row == 4){
+        if(![GlobalData getSharedInstance].userModel.isEnterpriseUser)
+        {
+            return;
+        }
+        [self selectTravelReasonAction];
+    }
+}
+
+-(void)selectStartTime:(UIButton *)btn
+{
+    CalendarHomeViewController *calendarVC = [[CalendarHomeViewController alloc]init];
+    [calendarVC setCalendarType:DayTipsTypeAirStart andSelectDate:[CommonMethod dateFromString:[GlobalData getSharedInstance].iTiketOrderInfo.iStartTime WithParseStr:kFormatYYYYMMDD] andStartDate:[NSDate date]];
+    calendarVC.calendarblock = ^(CalendarDayModel *model)
+    {
+        [[GlobalData getSharedInstance].iTiketOrderInfo updateStartTimeWith:model];
+        [self.tableView reloadData];
+    };
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:calendarVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+-(void)selectArriveTime:(UIButton *)btn
+{
+    CalendarHomeViewController *calendarVC = [[CalendarHomeViewController alloc]init];
+    [calendarVC setCalendarType:DayTipsTypeAirReturn andSelectDate:[CommonMethod dateFromString:[GlobalData getSharedInstance].iTiketOrderInfo.iEndTime WithParseStr:kFormatYYYYMMDD] andStartDate:[CommonMethod dateFromString:[GlobalData getSharedInstance].iTiketOrderInfo.iStartTime  WithParseStr:kFormatYYYYMMDD]];
+    calendarVC.calendarblock = ^(CalendarDayModel *model)
+    {
+        [[GlobalData getSharedInstance].iTiketOrderInfo updateEndTimeWith:model];
+        [self.tableView reloadData];
+    };
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:calendarVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+
+
+- (void)selectDepartureCityAction
+{
+    BeChooseCityViewController *choose = [[BeChooseCityViewController alloc]init];
+    choose.sourceType = kTicketDepartureType;
+    choose.cityBlock = ^(CityData *acity)
+    {
+        [[GlobalData getSharedInstance].iTiketOrderInfo updateDepartureCityWith:acity];
+        [self.tableView reloadData];
+    };
+    [self.navigationController pushViewController:choose animated:YES];
+}
+- (void)selectReachCityAction
+{
+    BeChooseCityViewController *choose = [[BeChooseCityViewController alloc]init];
+    choose.sourceType = kTicketReachType;
+    choose.cityBlock = ^(CityData *acity)
+    {
+        [[GlobalData getSharedInstance].iTiketOrderInfo updateReachCityWith:acity];
+        [self.tableView reloadData];
+    };
+    [self.navigationController pushViewController:choose animated:YES];
+}
+
+- (void)exchangeCityAction
+{
+    [[GlobalData getSharedInstance].iTiketOrderInfo exchangeCity];
+}
+
+-(void)selectAircraftCabinAction
+{
+    UIActionSheet *mySheet = [[UIActionSheet alloc]initWithTitle:@"舱位等级"delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:kBussinessClassText,kAllClassText, nil];
+    [mySheet showActionSheetWithClickBlock:^(NSInteger buttonIndex)
+     {
+         if (buttonIndex==0) {
+            [GlobalData getSharedInstance].iTiketOrderInfo.iShippingspace = @"2";
+            [GlobalData getSharedInstance].iTiketOrderInfo.cabinType = kBussinessClassType;
+            [self.tableView reloadData];
+         }
+         else if (buttonIndex==1)
+         {
+            [GlobalData getSharedInstance].iTiketOrderInfo.iShippingspace = @"";
+            [GlobalData getSharedInstance].iTiketOrderInfo.cabinType = kAllClassType;
+            [self.tableView reloadData];
+         }
+     }];
+}
+
+- (void)selectTravelReasonAction
+{
+    UIActionSheet* mySheet = [[UIActionSheet alloc]initWithTitle:@"出行事由"delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:kTravelReasonOnBussinessText,kTravelReasonPrivateText, nil];
+    [mySheet showActionSheetWithClickBlock:^(NSInteger buttonIndex)
+     {
+         if (buttonIndex==0) {
+             [GlobalData getSharedInstance].iTiketOrderInfo.iShippingspace = @"2";
+             [GlobalData getSharedInstance].iTiketOrderInfo.travelReason = kTravelReasonTypeOnBusiness;
+             [self.tableView reloadData];
+         }
+         else if (buttonIndex==1)
+         {
+             [GlobalData getSharedInstance].iTiketOrderInfo.iShippingspace = @"";
+             [GlobalData getSharedInstance].iTiketOrderInfo.travelReason = kTravelReasonTypePrivate;
+             [self.tableView reloadData];
+         }
+     }];
+}
+
+- (void)ticketInquiry
+{
+   /* 支付页面，只显示支付宝支付
+    if([GlobalData getSharedInstance].userModel.isLogin && [[GlobalData getSharedInstance].userModel.levelcode isEqualToString:@"3"])
+    {
+        //个人帐户是否开通保理 如开通=1 可查因公机票,没有保理不可查
+        if([[GlobalData getSharedInstance].userModel.StaffBaoLi intValue]!=1 && [GlobalData getSharedInstance].iTiketOrderInfo.travelReason == kTravelReasonTypeOnBusiness)
+        {
+            [MBProgressHUD showError:@"个人帐户没有保理不可查"];
+            return;
+        }
+    }*/
+    [[GlobalData getSharedInstance].iTiketOrderInfo verifyInquiryWithBlock:^(NSString *messageBlock){
+        if(messageBlock.length!=0)
+        {
+            [CommonMethod showMessage:messageBlock];
+            return ;
+        }
+        else
+        {
+            [GlobalData getSharedInstance].isfirst = @"isfirst";
+            BeFlightTicketListViewController *chaxun = [[BeFlightTicketListViewController alloc]init];
+            chaxun.querySourceType = kQueryControllerSourceDeparture;
+            [self.navigationController pushViewController:chaxun animated:YES];
+        }
+    }];
+    
+    // 友盟统计
+    [MobClick event:@"J0002"];
+}
+
+- (void)oneWayAction
+{ 
+    [GlobalData getSharedInstance].iTiketOrderInfo.isSingle = YES;
+    [GlobalData getSharedInstance].isfirst = @"isfirst";
+    [GlobalData getSharedInstance].iSdancheng = @"OW";
+    [GlobalData getSharedInstance].iTiketOrderInfo.ticketBookType = kOneWayTicketType;
+    strdanshuan = @"1";
+    [GlobalData getSharedInstance].DANSHUAN = strdanshuan;
+    [self.tableView reloadData];
+}
+
+- (void)roundTripAction
+{
+    [GlobalData getSharedInstance].iTiketOrderInfo.isSingle = NO;
+    [GlobalData getSharedInstance].iSdancheng = @"RT";
+    [GlobalData getSharedInstance].isfirst = @"isfirst";
+    strdanshuan = @"2";
+    [GlobalData getSharedInstance].iTiketOrderInfo.ticketBookType = kRoundTripTicketType;
+    [GlobalData getSharedInstance].DANSHUAN = strdanshuan;
+    [self.tableView reloadData];
+}
+@end

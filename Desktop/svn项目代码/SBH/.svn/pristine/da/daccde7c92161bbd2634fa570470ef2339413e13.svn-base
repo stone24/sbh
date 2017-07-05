@@ -1,0 +1,56 @@
+//
+//  BeHomePageInfoAndBannerCell.m
+//  sbh
+//
+//  Created by RobinLiu on 15/4/27.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "BeHomePageInfoAndBannerCell.h"
+#import "CommonDefine.h"
+#import "ColorUtility.h"
+
+@implementation BeHomePageInfoAndBannerCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    // Initialization code
+}
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
++ (CGFloat)cellHeight
+{
+    return [BeHomePageHeightItem sharedInstance].bannerCellHeight;
+}
+- (void)setCellSubviewsWith:(NSArray *)imageArray andUserInfo:(SBHUserModel *)model
+{
+    HomeBannerView *bannerView = [[HomeBannerView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, [BeHomePageHeightItem sharedInstance].bannerCellHeight) withImagesArray:imageArray];
+    bannerView.delegate = self;
+    [self addSubview:bannerView];
+}
+
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *identifier = @"BeHomePageInfoAndBannerIdentifier";
+    BeHomePageInfoAndBannerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if(!cell)
+    {
+        cell = [[BeHomePageInfoAndBannerCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType  = UITableViewCellAccessoryNone;
+    }
+    cell.contentView.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+- (void)homeBannerViewDidClick:(NSString *)webViewUrl
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(bannerDidClickWithUrlString:)])
+    {
+        [self.delegate bannerDidClickWithUrlString:webViewUrl];
+    }
+}
+@end

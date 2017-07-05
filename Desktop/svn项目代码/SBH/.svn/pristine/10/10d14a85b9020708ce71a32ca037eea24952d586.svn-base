@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2A76074D-8F4E-4388-A700-FEE6DD7C2961</string>
+	<key>IDESourceControlProjectName</key>
+	<string>sbh</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2db14c6a-3c0b-ff40-9d2d-03b27b16197c++1911</key>
+		<string>http://192.168.10.26/svn/SBH_APP/IOS/trunk/SBH</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>sbh.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2db14c6a-3c0b-ff40-9d2d-03b27b16197c++1911</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>2db14c6a-3c0b-ff40-9d2d-03b27b16197c++1911</key>
+		<string>http://192.168.10.26/svn/SBH_APP</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://192.168.10.26/svn/SBH_APP/IOS/trunk/SBH/sbh.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2db14c6a-3c0b-ff40-9d2d-03b27b16197c++1911</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2db14c6a-3c0b-ff40-9d2d-03b27b16197c++1911</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SBH</string>
+		</dict>
+	</array>
+</dict>
+</plist>

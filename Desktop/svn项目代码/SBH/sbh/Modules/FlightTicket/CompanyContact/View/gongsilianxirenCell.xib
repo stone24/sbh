@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="gongsilianxirenCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系人姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cn0-n5-ovl">
+                        <rect key="frame" x="10" y="12" width="99" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Kpk-EA-uL0"/>
+                            <constraint firstAttribute="width" constant="99" id="rka-LO-PHI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.074509803920000006" green="0.5568627451" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOd-T8-oeJ" userLabel="Label - 分割线">
+                        <rect key="frame" x="6" y="38" width="308" height="1"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.88235294119999996" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="3or-bS-Tgz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="哈哈" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="orT-FQ-huF">
+                        <rect key="frame" x="117" y="12" width="190" height="18"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="Hbh-UU-4R3"/>
+                            <constraint firstAttribute="width" constant="190" id="wBM-EJ-a1d"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                        <connections>
+                            <action selector="endOnExit:" destination="KGk-i7-Jjw" eventType="editingDidEndOnExit" id="FUf-wE-MQp"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="uOd-T8-oeJ" secondAttribute="bottom" id="3sr-UB-7h7"/>
+                    <constraint firstItem="Cn0-n5-ovl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="5VU-fb-cgW"/>
+                    <constraint firstItem="orT-FQ-huF" firstAttribute="top" secondItem="Cn0-n5-ovl" secondAttribute="top" id="KqV-si-0Eg"/>
+                    <constraint firstAttribute="trailing" secondItem="uOd-T8-oeJ" secondAttribute="trailing" constant="6" id="Td0-Tn-2gD"/>
+                    <constraint firstItem="orT-FQ-huF" firstAttribute="leading" secondItem="Cn0-n5-ovl" secondAttribute="trailing" constant="8" id="adt-d6-vDA"/>
+                    <constraint firstItem="uOd-T8-oeJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="v6A-8U-waq"/>
+                    <constraint firstAttribute="centerY" secondItem="Cn0-n5-ovl" secondAttribute="centerY" id="vTj-oB-JS0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="lianxiren" destination="Cn0-n5-ovl" id="i4u-of-FK1"/>
+                <outlet property="neirong" destination="orT-FQ-huF" id="npX-nK-jgy"/>
+                <outlet property="neirongLeftLayout" destination="adt-d6-vDA" id="BEj-4T-eka"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="152"/>
+        </tableViewCell>
+    </objects>
+</document>

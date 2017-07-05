@@ -1,0 +1,53 @@
+//
+//  SHBTabbarController.m
+//  sbh
+//
+//  Created by SBH on 14-12-1.
+//  Copyright (c) 2014年 shenbianhui. All rights reserved.
+//
+
+#import "SHBTabbarController.h"
+#import "ServerFactory.h"
+#import "MessageServer.h"
+#import "SBHHomeController.h"
+#import "BeIndividualViewController.h"
+#import "CommonDefine.h"
+
+@interface SHBTabbarController ()
+@end
+
+@implementation SHBTabbarController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [self setControllers];
+    
+}
+- (void)setControllers
+{
+    SBHHomeController *homeVC = [[SBHHomeController alloc] init];
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[[UIImage imageNamed:@"tabar_home_nor"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabar_home_sel"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    homeVC.tabBarItem.tag = 0;
+    
+    BeIndividualViewController *indiVC = [[BeIndividualViewController alloc]init];
+    indiVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"攻略" image:[[UIImage imageNamed:@"tabar_mine_nor"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tabar_mine_sel"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    indiVC.tabBarItem.tag = 1;
+    
+    self.viewControllers = @[homeVC,indiVC];
+    [self tabBar:self.tabBar didSelectItem:homeVC.tabBarItem];
+    self.selectedIndex = 0;
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:                                                         [NSDictionary dictionaryWithObjectsAndKeys:kLightGreenColor,NSForegroundColorAttributeName, nil]forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:                                                         [NSDictionary dictionaryWithObjectsAndKeys:kBlueColor,NSForegroundColorAttributeName, nil]forState:UIControlStateNormal];
+}
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if (item.tag == 0) {
+        [MobClick event:@"DD0001"];
+    } else if (item.tag == 1){
+        [MobClick event:@"MY0001"];
+    }
+}
+@end

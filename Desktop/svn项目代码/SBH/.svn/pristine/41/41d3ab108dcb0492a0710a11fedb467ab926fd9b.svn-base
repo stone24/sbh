@@ -1,0 +1,88 @@
+//
+//  SBHNavigationController.m
+//  sbh
+//
+//  Created by SBH on 14-12-1.
+//  Copyright (c) 2014年 shenbianhui. All rights reserved.
+//
+
+#import "SBHNavigationController.h"
+#import "ColorConfigure.h"
+#import "ColorUtility.h"
+#import "FontConfigure.h"
+
+@interface SBHNavigationController ()
+
+@end
+
+@implementation SBHNavigationController
+
+// 当该类第一次用到的时候就调用
++ (void)initialize
+{
+    // 1.设置导航条的主题
+    // 如果要同时设置很多UINavigationBar的样式, 可以通过设置UINavigationBar的主题的方式来设置以便简化代码
+    UINavigationBar *navBar = [UINavigationBar appearance];
+//    [navBar setBackgroundColor:[UIColor redColor]];
+    [navBar setBackgroundImage:[UIImage imageNamed:@"navImage"] forBarMetrics:UIBarMetricsDefault];
+    
+    
+//    // 设置状态栏的颜色
+//    UIBarButtonItem *appItem = [UIBarButtonItem appearance];
+//
+//    //  设置返回按钮的图片
+//    UIImage *norBackImage = [UIImage imageNamed:@"commonBackArrow"];
+//    [appItem setBackButtonBackgroundImage:norBackImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
+    navBar.tintColor = [UIColor whiteColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+  
+//    self.navigationBar.backgroundColor = [UIColor clearColor];
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[UINavigationBar appearance]setTitleTextAttributes:[NSDictionary  dictionaryWithObjectsAndKeys:[ColorConfigure navTitleColor],NSForegroundColorAttributeName,[FontConfigure navTitleFont],NSFontAttributeName, nil]];
+    [self.navigationController.navigationBar setBarTintColor:[ColorConfigure navBarColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    // Do any additional setup after loading the view.
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    imageView.image = [UIImage imageNamed:@"commonBackArrow"];
+    self.navigationBar.backIndicatorImage = [UIImage imageNamed:@"commonBackArrow"];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+
+    viewController.navigationController.navigationBar.translucent = NO;
+    viewController.edgesForExtendedLayout = UIRectEdgeNone;
+    viewController.navigationController.navigationBar.hidden = NO;
+    viewController.hidesBottomBarWhenPushed = YES;
+    [super pushViewController:viewController animated:animated];
+}
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+
+@end

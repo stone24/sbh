@@ -1,0 +1,27 @@
+
+/* Class = "UIButton"; normalTitle = "在线值机"; ObjectID = "7b6-zl-MSY"; */
+"7b6-zl-MSY.normalTitle" = "在线值机";
+
+/* Class = "UINavigationItem"; title = "我的"; ObjectID = "Eux-oT-KGb"; */
+"Eux-oT-KGb.title" = "我的";
+
+/* Class = "UINavigationItem"; title = "订单"; ObjectID = "HS5-rh-eBW"; */
+"HS5-rh-eBW.title" = "订单";
+
+/* Class = "UITabBarItem"; title = "我的"; ObjectID = "MfA-td-h8E"; */
+"MfA-td-h8E.title" = "我的";
+
+/* Class = "UIButton"; normalTitle = "代办登机牌"; ObjectID = "Ure-1w-Nq5"; */
+"Ure-1w-Nq5.normalTitle" = "代办登机牌";
+
+/* Class = "UITabBarItem"; title = "首页"; ObjectID = "bYn-SN-aoQ"; */
+"bYn-SN-aoQ.title" = "首页";
+
+/* Class = "UITabBarItem"; title = "小秘"; ObjectID = "lav-lW-RxS"; */
+"lav-lW-RxS.title" = "小秘";
+
+/* Class = "UINavigationItem"; title = "小秘"; ObjectID = "xd7-2B-W9g"; */
+"xd7-2B-W9g.title" = "小秘";
+
+/* Class = "UITabBarItem"; title = "订单"; ObjectID = "zme-J6-Eeg"; */
+"zme-J6-Eeg.title" = "订单";

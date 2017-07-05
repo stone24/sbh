@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bYa-bL-bgW" customClass="TicketReserveSelectCityCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bYa-bL-bgW" id="Cg9-cz-bme">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huG-us-jlN">
+                        <rect key="frame" x="15" y="45" width="46" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="9AM-AL-DoM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                        <state key="normal" title="北京">
+                            <color key="titleColor" red="0.27058823529999998" green="0.27058823529999998" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3N-Tp-bZQ">
+                        <rect key="frame" x="252" y="45" width="53" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="bMI-tb-FLp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                        <state key="normal" title=" 上海">
+                            <color key="titleColor" red="0.27058823529999998" green="0.27058823529999998" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9F-Nj-5jJ" userLabel="到达城市">
+                        <rect key="frame" x="203" y="0.0" width="117" height="83"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="117" id="NdA-k7-Psy"/>
+                        </constraints>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到达地" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYe-5w-hwN">
+                        <rect key="frame" x="254" y="15" width="51" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="Vg7-nA-0xA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uj-PJ-hWV">
+                        <rect key="frame" x="145" y="26" width="31" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="CEf-DH-Bbi"/>
+                            <constraint firstAttribute="width" constant="31" id="XWq-e9-Jw6"/>
+                        </constraints>
+                        <state key="normal" image="chengshiqiehuan">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted" image="chengshiqiehuan_A"/>
+                    </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45s-yq-VZe" userLabel="Label-分割线">
+                        <rect key="frame" x="15" y="82" width="290" height="1"/>
+                        <color key="backgroundColor" red="0.87058823529999996" green="0.88235294119999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="WP9-3D-QOa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出发地" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1K4-uD-HFl">
+                        <rect key="frame" x="15" y="15" width="51" height="16"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="hfj-UW-pqB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hs9-yG-Gqd" userLabel="出发城市">
+                        <rect key="frame" x="0.0" y="0.0" width="112" height="83"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="112" id="34G-mv-JUz"/>
+                        </constraints>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="C9F-Nj-5jJ" secondAttribute="bottom" id="0pD-8t-QT3"/>
+                    <constraint firstItem="huG-us-jlN" firstAttribute="top" secondItem="1K4-uD-HFl" secondAttribute="bottom" constant="14" id="6eJ-ly-uIL"/>
+                    <constraint firstAttribute="centerX" secondItem="5uj-PJ-hWV" secondAttribute="centerX" id="7hh-gP-hzH"/>
+                    <constraint firstItem="1K4-uD-HFl" firstAttribute="leading" secondItem="Cg9-cz-bme" secondAttribute="leading" constant="15" id="8P2-hW-rZA"/>
+                    <constraint firstAttribute="bottom" secondItem="Hs9-yG-Gqd" secondAttribute="bottom" id="DJh-1e-dJm"/>
+                    <constraint firstItem="1K4-uD-HFl" firstAttribute="top" secondItem="Cg9-cz-bme" secondAttribute="top" constant="15" id="DxO-sX-zSh"/>
+                    <constraint firstItem="1K4-uD-HFl" firstAttribute="leading" secondItem="huG-us-jlN" secondAttribute="leading" id="Hbe-WZ-YKe"/>
+                    <constraint firstItem="45s-yq-VZe" firstAttribute="leading" secondItem="Cg9-cz-bme" secondAttribute="leading" constant="15" id="PbD-du-wWF"/>
+                    <constraint firstAttribute="centerY" secondItem="5uj-PJ-hWV" secondAttribute="centerY" id="Pn9-vi-NMy"/>
+                    <constraint firstItem="wYe-5w-hwN" firstAttribute="trailing" secondItem="I3N-Tp-bZQ" secondAttribute="trailing" id="WwB-b3-kxA"/>
+                    <constraint firstAttribute="trailing" secondItem="wYe-5w-hwN" secondAttribute="trailing" constant="15" id="Zyj-0G-0TZ"/>
+                    <constraint firstAttribute="trailing" secondItem="C9F-Nj-5jJ" secondAttribute="trailing" id="aNq-Wc-k8L"/>
+                    <constraint firstItem="C9F-Nj-5jJ" firstAttribute="top" secondItem="Cg9-cz-bme" secondAttribute="top" id="bHa-zK-GgY"/>
+                    <constraint firstItem="Hs9-yG-Gqd" firstAttribute="leading" secondItem="Cg9-cz-bme" secondAttribute="leading" id="cY1-2Y-SRB"/>
+                    <constraint firstAttribute="bottom" secondItem="45s-yq-VZe" secondAttribute="bottom" id="gEv-ba-ldX"/>
+                    <constraint firstItem="wYe-5w-hwN" firstAttribute="top" secondItem="1K4-uD-HFl" secondAttribute="top" id="hdT-gb-Hef"/>
+                    <constraint firstItem="Hs9-yG-Gqd" firstAttribute="top" secondItem="Cg9-cz-bme" secondAttribute="top" id="kqm-eQ-YEu"/>
+                    <constraint firstItem="I3N-Tp-bZQ" firstAttribute="top" secondItem="wYe-5w-hwN" secondAttribute="bottom" constant="14" id="sIt-hO-r2y"/>
+                    <constraint firstAttribute="trailing" secondItem="45s-yq-VZe" secondAttribute="trailing" constant="15" id="wuE-Xt-sjH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="beijing" destination="huG-us-jlN" id="0BK-hc-kE3"/>
+                <outlet property="chuchenBtn" destination="Hs9-yG-Gqd" id="Ajb-3a-58n"/>
+                <outlet property="chufachengshi" destination="1K4-uD-HFl" id="jGA-BT-vZB"/>
+                <outlet property="daodaBtn" destination="C9F-Nj-5jJ" id="QPU-pz-wkS"/>
+                <outlet property="daodachengshi" destination="I3N-Tp-bZQ" id="oNW-KX-tzJ"/>
+                <outlet property="daodcsName" destination="wYe-5w-hwN" id="MYm-jv-ZEg"/>
+                <outlet property="exchangeBtnClick" destination="5uj-PJ-hWV" id="U5O-ik-to5"/>
+            </connections>
+            <point key="canvasLocation" x="215" y="104.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chengshiqiehuan" width="31" height="31"/>
+        <image name="chengshiqiehuan_A" width="31" height="31"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

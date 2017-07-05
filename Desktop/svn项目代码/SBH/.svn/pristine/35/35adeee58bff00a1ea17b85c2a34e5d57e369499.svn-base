@@ -1,0 +1,134 @@
+//
+//  BeIndividualViewController.m
+//  SideBenefit
+//
+//  Created by RobinLiu on 15/3/3.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "BeIndividualViewController.h"
+#import "CommonDefine.h"
+#import "SBHSettingController.h"
+#import "BeIndividualViewController.h"
+#import "BeIndividualHeaderView.h"
+#import "ColorConfigure.h"
+#import "MessageListViewController.h"
+#import "SBHMyCell.h"
+
+#define kCellSetttingText @"设置"
+#define kMessageText @"消息"
+
+@interface BeIndividualViewController ()<BeIndividualHeaderViewDelegate>
+{
+    BeIndividualHeaderView *headerView;
+}
+
+@end
+
+@implementation BeIndividualViewController
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        UIImage *image = [[UIImage imageNamed:@"tabar_mine_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *selectedImage = [[UIImage imageNamed:@"tabar_mine_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:image selectedImage:selectedImage];
+        [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorConfigure globalBgColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+    }
+    return self;
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"我的";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTableViewUI) name:kNotificationLoginSuccess object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateTableViewUI) name:kNotificationLogOffSuccess object:nil];
+    self.navigationController.navigationBarHidden = YES;
+    self.tableView.height = CGRectGetHeight(self.view.bounds);
+    [self updateTableViewUI];
+    headerView = [[BeIndividualHeaderView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 155.0/320.0 *kScreenWidth)];
+    UIView *blueView = [[UIView alloc]initWithFrame:CGRectMake(0, -1000, kScreenWidth, 1000)];
+    UIColor *currentColor = [headerView colorOfPoint:CGPointMake(10, 10)];
+    blueView.backgroundColor = currentColor;
+    [headerView addSubview:blueView];
+    self.tableView.tableHeaderView = headerView;
+    headerView.delegate = self;
+    headerView.accountInfo = [GlobalData getSharedInstance].userModel;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.dataArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45.0f;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SBHMyCell *cell =  [SBHMyCell cellWithTableView:tableView];
+    [cell.myIcon setImage:[UIImage imageNamed:[[self.dataArray objectAtIndex:indexPath.row] objectForKey:@"image"]] forState:UIControlStateNormal];
+    cell.myTitle.text = [[self.dataArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+    cell.sepImageView.hidden = YES;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SBHMyCell *cell = (SBHMyCell *)[tableView cellForRowAtIndexPath:indexPath];
+    NSString *cellText = cell.myTitle.text;
+    if([cellText isEqualToString:kCellSetttingText])
+    {
+        SBHSettingController *settingVC = [[SBHSettingController alloc]init];
+        [self.navigationController pushViewController:settingVC animated:YES];
+    }
+    if([cellText isEqualToString:kMessageText])
+    {
+        MessageListViewController *messageListVC = [[MessageListViewController alloc]init];
+        [self.navigationController pushViewController:messageListVC animated:YES];
+        [MobClick event:@"XX0001"];
+    }
+}
+- (void)detailButtonDidClick
+{
+    if ([GlobalData getSharedInstance].userModel.isLogin==NO)
+    {
+        [BeLogUtility doLogOn];
+    }
+}
+- (void)updateTableViewUI
+{
+    [self.dataArray removeAllObjects];
+    NSMutableDictionary *firstObject = [NSMutableDictionary dictionary];
+    [firstObject setObject:@"individual_cell_setting" forKey:@"image"];
+    [firstObject setObject:kCellSetttingText forKey:@"title"];
+    NSMutableDictionary *secondObject = [NSMutableDictionary dictionary];
+    [secondObject setObject:@"individual_cell_msg" forKey:@"image"];
+    [secondObject setObject:kMessageText forKey:@"title"];
+    if([GlobalData getSharedInstance].userModel.isLogin)
+    {
+        [self.dataArray addObject:secondObject];
+        [self.dataArray addObject:firstObject];
+    }
+    else
+    {
+        [self.dataArray addObject:firstObject];
+    }
+    headerView.accountInfo = [GlobalData getSharedInstance].userModel;
+    [self.tableView reloadData];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+@end

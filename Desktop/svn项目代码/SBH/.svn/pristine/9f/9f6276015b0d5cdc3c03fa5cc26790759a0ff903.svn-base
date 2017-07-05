@@ -1,0 +1,85 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "UIView+Extension.h"
+    #import "NSDictionary+Additions.h"
+    #import "MBProgressHUD+MJ.h"
+    #import "SBHNavigationController.h"
+    #import "GlobalData.h"
+    #import "MJExtension.h"
+    #import "AFNetworking.h"
+    #import "CommonMethod.h"
+    #import "ColorConfigure.h"
+    #import "BeLogUtility.h"
+    #import "ColorUtility.h"
+    #import "BeLoginViewController.h"
+
+#ifdef DEBUG
+#define SBHLog(...) NSLog(__VA_ARGS__)
+#else
+#define SBHLog(...)
+#endif
+#define SepMark @"<br/>"
+#define kTimeoutInterval 60.0
+#define kNetworkAbnormal @"网络异常"
+
+// 是否为iOS8
+#define iOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
+// 屏幕尺寸
+#define SBHScreenW [UIScreen mainScreen].bounds.size.width
+#define kBeScreenH [UIScreen mainScreen].bounds.size.height
+// 颜色
+#define SBHColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define SBHFontColor SBHColor(43, 128, 231)
+#define kGreenColor SBHColor(82, 215, 107)
+#define SBHYellowColor [ColorUtility colorFromInt:0xffec9f1d]
+// 蓝色
+#define kBlueColor SBHColor(74, 142, 232)
+// 分隔线颜色
+#define SBHLineColor SBHColor(225, 225, 225)
+// 背景颜色
+#define kbgColor SBHColor(240, 240, 240)
+#define SBHNotificationCount @"SBHNotificationCount"
+
+#define KErrorCode @"msg"
+// 城市
+#define kStartCityName @"kStartCityName"
+#define kReachCityName @"kReachCityName"
+#define kStartCityCode @"kStartCityCode"
+#define kReachCityCode @"kReachCityCode"
+
+//保理支付还是身边惠余额支付（小商旅）
+#define kPayTipString ([[GlobalData getSharedInstance].userModel.accountTypeString intValue] == 1?@"保理支付":@"身边惠余额支付")
+
+#define kAirTicketDetailInset 10
+#define kAirTicketDetailContentX 78
+#define kAirTicketDetailContentFont [UIFont systemFontOfSize:14]
+#define kAirTicketPriceDetailFont [UIFont systemFontOfSize:12]
+
+#define kAirTicketDetailTitleW 63
+#define kAirTicketDetailTitleH 16
+#define kAirTicketDetailTitleColor SBHColor(35, 35, 35)
+#define kAirTicketDetailContentColor SBHColor(105, 105, 105)
+
+#define kaddPassengerTypeTrain @"新增乘车人"
+
+#define kAccessToken @"kAccessToken"
+#define kTelephoneTip @"客服服务电话：400 - 606 - 6288"
+#define kCallTelephone @"4006066288"
+
+// 通知
+#define kNotificationSpecial @"kNotificationSpecial"
+#endif
+

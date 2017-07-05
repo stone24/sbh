@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="xuanzechengjirenTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="71.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKz-fU-I6q">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                        <animations/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sME-Xu-jZT">
+                        <rect key="frame" x="0.0" y="70" width="320" height="1"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.88235294119999996" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="5mF-ec-MrY"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXh-r6-3qQ">
+                        <rect key="frame" x="38" y="41" width="38" height="12"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="40K-N4-6YS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="测试" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSn-yx-suH">
+                        <rect key="frame" x="245" y="18" width="60" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="UNO-qs-rc7"/>
+                            <constraint firstAttribute="width" constant="60" id="bqF-Rh-xEu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xid-t4-oEC">
+                        <rect key="frame" x="68" y="18" width="15" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="1TN-Gf-lnf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xzlxr_weixuanzeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hmC-Rr-SN2">
+                        <rect key="frame" x="10" y="25" width="21" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="21" id="cgA-p2-Gnd"/>
+                            <constraint firstAttribute="height" constant="21" id="iyN-bV-sCR"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="138000000000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjc-9G-yVn">
+                        <rect key="frame" x="84" y="19" width="100" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Tda-v2-olc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aF6-yH-tRQ">
+                        <rect key="frame" x="38" y="18" width="30" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="EMU-zt-EBU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="15"/>
+                        <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="aF6-yH-tRQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="36c-2a-amH"/>
+                    <constraint firstAttribute="bottom" secondItem="sME-Xu-jZT" secondAttribute="bottom" id="5pc-Dn-xSQ"/>
+                    <constraint firstAttribute="centerY" secondItem="hmC-Rr-SN2" secondAttribute="centerY" id="HBx-kc-VsY"/>
+                    <constraint firstItem="hmC-Rr-SN2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="J2d-Wv-ME2"/>
+                    <constraint firstItem="xid-t4-oEC" firstAttribute="leading" secondItem="aF6-yH-tRQ" secondAttribute="trailing" id="JB5-pO-JAl"/>
+                    <constraint firstItem="gXh-r6-3qQ" firstAttribute="top" secondItem="aF6-yH-tRQ" secondAttribute="bottom" constant="8" id="Nuw-YV-dt8"/>
+                    <constraint firstItem="IKz-fU-I6q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Qil-4W-e4Y"/>
+                    <constraint firstAttribute="trailing" secondItem="eSn-yx-suH" secondAttribute="trailing" constant="15" id="Tlr-Fv-buH"/>
+                    <constraint firstItem="hjc-9G-yVn" firstAttribute="leading" secondItem="xid-t4-oEC" secondAttribute="trailing" constant="1" id="U7F-o0-YlI"/>
+                    <constraint firstItem="xid-t4-oEC" firstAttribute="top" secondItem="aF6-yH-tRQ" secondAttribute="top" id="Vgb-78-cRC"/>
+                    <constraint firstItem="aF6-yH-tRQ" firstAttribute="top" secondItem="hjc-9G-yVn" secondAttribute="top" constant="-1" id="Y2q-Bb-4hI"/>
+                    <constraint firstItem="sME-Xu-jZT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aTD-Um-IQu"/>
+                    <constraint firstItem="gXh-r6-3qQ" firstAttribute="leading" secondItem="aF6-yH-tRQ" secondAttribute="leading" id="bww-dg-Bhn"/>
+                    <constraint firstItem="IKz-fU-I6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="d7R-A4-aQs"/>
+                    <constraint firstAttribute="trailing" secondItem="IKz-fU-I6q" secondAttribute="trailing" id="hSb-ZN-d4j"/>
+                    <constraint firstItem="aF6-yH-tRQ" firstAttribute="leading" secondItem="hmC-Rr-SN2" secondAttribute="trailing" constant="7" id="moq-in-Gl1"/>
+                    <constraint firstAttribute="trailing" secondItem="sME-Xu-jZT" secondAttribute="trailing" id="pWu-Ug-G0j"/>
+                    <constraint firstAttribute="bottom" secondItem="IKz-fU-I6q" secondAttribute="bottom" id="qeq-VJ-6pM"/>
+                    <constraint firstItem="eSn-yx-suH" firstAttribute="top" secondItem="aF6-yH-tRQ" secondAttribute="top" id="stF-F2-p9m"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="cute1" destination="hmC-Rr-SN2" id="a6A-ud-fMU"/>
+                <outlet property="iPhoneNum" destination="hjc-9G-yVn" id="kco-90-rac"/>
+                <outlet property="iSelectButton" destination="IKz-fU-I6q" id="Dp1-7M-NkU"/>
+                <outlet property="iUserJob" destination="eSn-yx-suH" id="yF1-zs-gWQ"/>
+                <outlet property="iUserName" destination="aF6-yH-tRQ" id="6sU-UO-wdD"/>
+                <outlet property="iUserSex" destination="xid-t4-oEC" id="SYo-sf-SEW"/>
+                <outlet property="iemail" destination="gXh-r6-3qQ" id="RLk-dQ-BdH"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="148"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="xzlxr_weixuanzeIcon" width="21" height="21"/>
+    </resources>
+</document>

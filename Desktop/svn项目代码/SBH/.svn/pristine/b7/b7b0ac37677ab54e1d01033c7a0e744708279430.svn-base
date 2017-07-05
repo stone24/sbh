@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="79" id="KGk-i7-Jjw" customClass="dingdantianxieTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fW2-kE-jae">
+                        <rect key="frame" x="302" y="14" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="5xf-2t-buw"/>
+                            <constraint firstAttribute="width" constant="12" id="AxB-Yx-3Qf"/>
+                        </constraints>
+                        <state key="normal" image="common_icon_arrow">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBZ-Jz-InW">
+                        <rect key="frame" x="273" y="0.0" width="47" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="47" id="KFQ-kj-dba"/>
+                        </constraints>
+                        <state key="normal" image="ddtx_shanchuIcon">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LGx-3M-1EX">
+                        <rect key="frame" x="0.0" y="38" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.87058823529999996" green="0.88235294119999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="cUf-mY-sff"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sY7-Fu-YCZ">
+                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="38" id="let-4g-BB5"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" image="reduce_passenger">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="g姓名型明星" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF1-Uo-Ksh">
+                        <rect key="frame" x="38" y="10" width="95" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="LGx-3M-1EX" secondAttribute="trailing" id="40S-kc-rkl"/>
+                    <constraint firstAttribute="trailing" secondItem="mBZ-Jz-InW" secondAttribute="trailing" id="8zV-Ba-stu"/>
+                    <constraint firstItem="LF1-Uo-Ksh" firstAttribute="top" secondItem="sY7-Fu-YCZ" secondAttribute="top" constant="10" id="B76-9E-0Ro"/>
+                    <constraint firstAttribute="bottom" secondItem="mBZ-Jz-InW" secondAttribute="bottom" id="KuH-Z7-xkU"/>
+                    <constraint firstItem="mBZ-Jz-InW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NC8-of-TAT"/>
+                    <constraint firstAttribute="bottom" secondItem="sY7-Fu-YCZ" secondAttribute="bottom" constant="1" id="Pdt-og-AB8"/>
+                    <constraint firstItem="sY7-Fu-YCZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="UB5-Si-yn3"/>
+                    <constraint firstAttribute="centerY" secondItem="fW2-kE-jae" secondAttribute="centerY" id="cm4-sP-3xP"/>
+                    <constraint firstAttribute="trailing" secondItem="fW2-kE-jae" secondAttribute="trailing" constant="6" id="esc-Yd-Sim"/>
+                    <constraint firstAttribute="bottom" secondItem="LGx-3M-1EX" secondAttribute="bottom" id="lLU-P9-Iap"/>
+                    <constraint firstItem="LF1-Uo-Ksh" firstAttribute="leading" secondItem="sY7-Fu-YCZ" secondAttribute="trailing" id="nhm-xr-3dd"/>
+                    <constraint firstItem="LGx-3M-1EX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="x8E-tb-lql"/>
+                    <constraint firstItem="sY7-Fu-YCZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yF0-cL-ywd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="delChengjrBtn" destination="mBZ-Jz-InW" id="x2y-1D-JsK"/>
+                <outlet property="rotDelBtn" destination="sY7-Fu-YCZ" id="NTY-qS-yPH"/>
+                <outlet property="sepImageView" destination="LGx-3M-1EX" id="ua0-pM-b96"/>
+                <outlet property="xingming" destination="LF1-Uo-Ksh" id="za1-Sz-D3K"/>
+            </connections>
+            <point key="canvasLocation" x="353" y="322"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="common_icon_arrow" width="12" height="12"/>
+        <image name="ddtx_shanchuIcon" width="47" height="40"/>
+        <image name="reduce_passenger" width="16" height="16"/>
+    </resources>
+</document>

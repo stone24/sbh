@@ -1,0 +1,27 @@
+//
+//  BeHomePageHeightItem.h
+//  sbh
+//
+//  Created by RobinLiu on 15/5/8.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface WTBeHomePageHeightItem : NSObject
++ (WTBeHomePageHeightItem *)sharedInstance;
+@property (nonatomic,assign)CGFloat bannerCellHeight;
+@property (nonatomic,assign)CGFloat buttonsCellHeight;
+@property (nonatomic,assign)CGFloat buttonsCellTopSpaceHeight;
+@property (nonatomic,assign)CGFloat buttonsCellBottomSpaceHeight;
+@property (nonatomic,assign)CGFloat buttonsCellVerticalSpaceHeight;
+@property (nonatomic,assign)CGFloat buttonsCellHorizontalSpaceHeight;
+@property (nonatomic,assign)CGFloat buttonsCellLeftButtonWidth;
+@property (nonatomic,assign)CGFloat buttonsCellRightButtonWidth;
+@property (nonatomic,assign)CGFloat ticketButtonHeight;
+@property (nonatomic,assign)CGFloat hotelButtonHeight;
+@property (nonatomic,assign)CGFloat checkInButtonHeight;
+@property (nonatomic,assign)CGFloat airDynamicButtonHeight;
+@property (nonatomic,assign)CGFloat financeButtonHeight;
+@property (nonatomic,assign)CGFloat postButtonHeight;
+@end

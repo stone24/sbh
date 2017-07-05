@@ -1,0 +1,163 @@
+//
+//  BeHomePageOthersCell.m
+//  sbh
+//
+//  Created by RobinLiu on 15/4/27.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "WTBeHomePageOthersCell.h"
+#import "CommonDefine.h"
+#import "BeHomePageInfoAndBannerCell.h"
+#import "ColorUtility.h"
+#import "WTBeHomePageHeightItem.h"
+
+#define isSupportFinance @"No"//是否支持理财
+
+@interface WTBeHomePageOthersCell()
+{
+    id _thisTarget;
+    SEL _ticketAtion;
+    SEL _hotelAction;
+    SEL _checkInAction;
+    SEL _airDynamicAction;
+    SEL _financeAction;
+    SEL _postAction;
+}
+@end
+@implementation WTBeHomePageOthersCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
++ (CGFloat)cellHeight
+{
+    return [WTBeHomePageHeightItem sharedInstance].buttonsCellHeight;
+}
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *identifier = @"BeHomePageOthersCellIdentifier";
+    WTBeHomePageOthersCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if(!cell)
+    {
+        cell = [[WTBeHomePageOthersCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType  = UITableViewCellAccessoryNone;
+    }
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+- (void)setCellSubviews
+{
+    CGFloat horizonSpace = [WTBeHomePageHeightItem sharedInstance].buttonsCellHorizontalSpaceHeight;
+    CGFloat leftHeight = [WTBeHomePageHeightItem sharedInstance].buttonsCellTopSpaceHeight;
+    CGFloat rightHeight = leftHeight;
+    CGFloat leftButtonWidth = [WTBeHomePageHeightItem sharedInstance].buttonsCellLeftButtonWidth;
+    CGFloat rightButtonWidth = [WTBeHomePageHeightItem sharedInstance].buttonsCellRightButtonWidth;
+    
+    UIButton *ticketButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    ticketButton.tag = 0;
+    [ticketButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_ticket_normal"] forState:UIControlStateNormal];
+    [ticketButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_ticket_highlight"] forState:UIControlStateHighlighted];
+    [ticketButton addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+    ticketButton.frame = CGRectMake(horizonSpace, leftHeight, leftButtonWidth, [WTBeHomePageHeightItem sharedInstance].ticketButtonHeight);
+    [self addSubview:ticketButton];
+    leftHeight = leftHeight + ticketButton.height + [WTBeHomePageHeightItem sharedInstance].buttonsCellVerticalSpaceHeight;
+    
+    UIButton *hotelButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    hotelButton.tag = 1;
+    [hotelButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_hotel_normal"] forState:UIControlStateNormal];
+    [hotelButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_hotel_highlight"] forState:UIControlStateHighlighted];
+    [hotelButton addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+    hotelButton.frame = CGRectMake(horizonSpace*2+ticketButton.width, rightHeight, rightButtonWidth, [WTBeHomePageHeightItem sharedInstance].hotelButtonHeight);
+    [self addSubview:hotelButton];
+    rightHeight = rightHeight + hotelButton.height + [WTBeHomePageHeightItem sharedInstance].buttonsCellVerticalSpaceHeight;
+    
+    UIButton *checkInButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    checkInButton.tag = 2;
+    [checkInButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_checkin_normal"] forState:UIControlStateNormal];
+    [checkInButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_checkin_highlight"] forState:UIControlStateHighlighted];
+    [checkInButton addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+    checkInButton.frame = CGRectMake(horizonSpace, leftHeight, leftButtonWidth, [WTBeHomePageHeightItem sharedInstance].checkInButtonHeight);
+    [self addSubview:checkInButton];
+    leftHeight = leftHeight + checkInButton.height + [WTBeHomePageHeightItem sharedInstance].buttonsCellVerticalSpaceHeight;
+    
+    UIButton *airDynamicButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    airDynamicButton.tag = 3;
+    [airDynamicButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_airdynamic_normal"] forState:UIControlStateNormal];
+    [airDynamicButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_airdynamic_highlight"] forState:UIControlStateHighlighted];
+    [airDynamicButton addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+    airDynamicButton.frame = CGRectMake(horizonSpace*2+checkInButton.width, rightHeight, rightButtonWidth, [WTBeHomePageHeightItem sharedInstance].airDynamicButtonHeight);
+    [self addSubview:airDynamicButton];
+    rightHeight = rightHeight + airDynamicButton.height + [WTBeHomePageHeightItem sharedInstance].buttonsCellVerticalSpaceHeight;
+    
+    UIButton *financeButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    financeButton.tag = 4;
+    [financeButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_finance_normal"] forState:UIControlStateNormal];
+    [financeButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_finance_highlight"] forState:UIControlStateHighlighted];
+    [financeButton addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+    financeButton.frame = CGRectMake(horizonSpace, leftHeight, leftButtonWidth, [WTBeHomePageHeightItem sharedInstance].financeButtonHeight);
+    //[self addSubview:financeButton];
+    
+    UIButton *postButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    postButton.tag = 5;
+    [postButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_post_normal"] forState:UIControlStateNormal];
+    [postButton setBackgroundImage:[UIImage imageNamed:@"wt_homepage_post_highlight"] forState:UIControlStateHighlighted];
+    [postButton addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+    postButton.frame = CGRectMake(horizonSpace*2+financeButton.width, rightHeight, rightButtonWidth, [WTBeHomePageHeightItem sharedInstance].postButtonHeight);
+    [self addSubview:postButton];
+}
+- (void)detailAction:(UIButton *)sender
+{
+    if(sender.tag == 0)
+    {
+        [_thisTarget performSelector:_ticketAtion withObject:nil afterDelay:0];
+    }
+    else if (sender.tag ==1)
+    {
+        [_thisTarget performSelector:_hotelAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 2)
+    {
+        [_thisTarget performSelector:_checkInAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 3)
+    {
+        [_thisTarget performSelector:_airDynamicAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 4)
+    {
+        [_thisTarget performSelector:_financeAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 5)
+    {
+        [_thisTarget performSelector:_postAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 6)
+    {
+        [_thisTarget performSelector:_postAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 7)
+    {
+        [_thisTarget performSelector:_postAction withObject:nil afterDelay:0];
+    }
+}
+- (void)addTarget:(id)target andTicketAction:(SEL)asAction andHotelAction:(SEL)hrAction andCheckInAction:(SEL)oAction andAirDynamicAction:(SEL)dAction andFinanceAction:(SEL)fAction andPostAction:(SEL)pAction
+{
+    _thisTarget = target;
+    _ticketAtion = asAction;
+    _hotelAction = hrAction;
+    _checkInAction = oAction;
+    _airDynamicAction = dAction;
+    _financeAction = fAction;
+    _postAction = pAction;
+}
+@end

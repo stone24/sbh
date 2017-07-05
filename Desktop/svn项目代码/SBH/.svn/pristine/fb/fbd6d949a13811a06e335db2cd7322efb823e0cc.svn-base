@@ -1,0 +1,59 @@
+//
+//  BeHomePageHeightItem.m
+//  sbh
+//
+//  Created by RobinLiu on 15/5/8.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "BeHomePageHeightItem.h"
+#import "CommonDefine.h"
+
+@implementation BeHomePageHeightItem
++ (BeHomePageHeightItem *)sharedInstance
+{
+    static BeHomePageHeightItem *_instance = nil;
+    static dispatch_once_t oncetoken;
+    dispatch_once(&oncetoken, ^{
+        if(!_instance)
+        {
+            _instance = [[BeHomePageHeightItem alloc]init];
+        }
+    });
+    return _instance;
+}
+- (id)init
+{
+    if(self = [super init])
+    {
+        _bannerCellHeight = 0.01;
+        if(kIs_iPhone4||kIs_iPhone5)
+        {
+            _buttonsCellHeight = 568 - _bannerCellHeight - 49;
+        }
+        else
+        {
+           _buttonsCellHeight = kScreenHeight - _bannerCellHeight - 49;
+        }
+        _buttonsCellTopSpaceHeight = 10.0/320.0*kScreenWidth;
+        _buttonsCellBottomSpaceHeight = 10.0/320.0*kScreenWidth;
+        _buttonsCellVerticalSpaceHeight = 8.0/320.0*kScreenWidth;
+        _buttonsCellHorizontalSpaceHeight = 8.0/320.0*kScreenWidth;
+        _buttonsCellLeftButtonWidth = (kScreenWidth - 3.0*_buttonsCellHorizontalSpaceHeight)/2- 2.0;
+        _buttonsCellRightButtonWidth = (kScreenWidth - 3.0*_buttonsCellHorizontalSpaceHeight)/2.0+ 2;
+        
+        _ticketButtonHeight = 288.0/(288.0+205.0+135.0)*(_buttonsCellHeight - _buttonsCellTopSpaceHeight - _buttonsCellBottomSpaceHeight - _buttonsCellVerticalSpaceHeight*2);
+
+        _hotelButtonHeight = _ticketButtonHeight;
+
+        _trainButtonHeight = 205.0/(288.0+205.0+135.0)*(_buttonsCellHeight - _buttonsCellTopSpaceHeight - _buttonsCellBottomSpaceHeight - _buttonsCellVerticalSpaceHeight*2);
+
+        _airDynamicButtonHeight = _trainButtonHeight;
+
+        _checkInButtonHeight = 135.0/(288.0+205.0+135.0)*(_buttonsCellHeight - _buttonsCellTopSpaceHeight - _buttonsCellBottomSpaceHeight - _buttonsCellVerticalSpaceHeight*2);
+        
+        _postButtonHeight = _checkInButtonHeight;
+    }
+    return self;
+}
+@end

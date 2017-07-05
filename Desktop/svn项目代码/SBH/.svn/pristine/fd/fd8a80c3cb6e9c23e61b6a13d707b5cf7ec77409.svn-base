@@ -1,0 +1,208 @@
+//
+//  AppDelegate+Additions.m
+//  sbh
+//
+//  Created by SBH on 15/6/29.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "AppDelegate+Additions.h"
+#import "ServerConfigure.h"
+#import "SBHHttp.h"
+#import "UMMobClick/MobClick.h"
+#import "CommonDefine.h"
+#import "BeGuidePageViewController.h"
+#import "BeLoginManager.h"
+#import "SHBTabbarController.h"
+#import "ServerFactory.h"
+#import "BeMapServer.h"
+#import "BeAddressModel.h"
+#import "BeAdPage.h"
+#import "SHBTabbarController.h"
+
+#import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <QMapKit/QMapKit.h>
+#import <QMapSearchKit/QMapSearchKit.h>
+#import <MAMapKit/MAMapKit.h>
+
+#define kAppCurVersion @"appCurVersion"
+@implementation AppDelegate (Additions)
+- (void)getAdPageData
+{
+    NSString * haveLoad = [self getPreference:kIsAdPageShowed];
+    if(![haveLoad isEqualToString:[CommonMethod stringFromDate:[NSDate date] WithParseStr:kFormatYYYYMMDD]])
+    {
+        //每天第一次启动
+        int imageSize = 1;
+        if(kIs_iPhone4)
+        {
+            imageSize = 0;
+        }
+        else if (kIs_iPhone5)
+        {
+            imageSize = 1;
+        }
+        else if (kIs_iPhone6)
+        {
+            imageSize = 2;
+        }
+        else if (kIs_iPhone6Plus)
+        {
+            imageSize = 3;
+        }
+        [[SBHHttp sharedInstance]postPath:[NSString stringWithFormat:@"%@Passport/images",kServerHost] withParameters:@{@"image":[NSString stringWithFormat:@"%d",imageSize]} showHud:NO success:^(id callback)
+         {
+             NSArray *adArray = [callback objectForKey:@"image"];
+             [self savePreference:kAdPageDataKey withValue:adArray];
+             [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationShowAd object:nil];
+         }failure:^(NSError *error)
+         {
+             
+         }];
+    }
+}
+- (void)setupUmeng
+{
+#ifdef DEBUG
+#else            
+    UMConfigInstance.appKey = @"53c571f856240bd16409377f";
+    [MobClick startWithConfigure:UMConfigInstance];
+#endif
+}
+- (void)tencentMapConfigure
+{
+    [QMapServices sharedServices].apiKey = kTencentMapID;
+    [[QMSSearchServices sharedServices] setApiKey:kTencentMapID];
+}
+- (void)checkVersion
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/javascript"];
+    [manager GET:kAppLookUpUrl parameters:@{@"id":kAppID} progress:^(NSProgress * _Nonnull uploadProgress)
+     {
+         
+         
+     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         NSDictionary *dict = [[responseObject objectForKey:@"results"] firstObject];
+         NSString *webVersion = [NSString stringWithFormat:@"%@",[dict objectForKey:@"version"]];
+         NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+         if([localVersion compare:webVersion] == NSOrderedAscending)
+         {
+             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新的版本，是否需要更新" message:nil preferredStyle:UIAlertControllerStyleAlert];
+             [alertController addAction:[UIAlertAction actionWithTitle:@"不需要" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action){
+                 
+             }]];
+             [alertController addAction:[UIAlertAction actionWithTitle:@"需要" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
+                 NSURL *downloadUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kAppDownloadUrl,kAppID]];
+                 [[UIApplication sharedApplication]openURL:downloadUrl];
+             }]];
+         }
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+     }];
+}
+- (void)automaticLogin
+{
+    [[BeLoginManager sharedInstance]doLoginWithStoredData];
+}
+- (UIViewController *)getRootViewController
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    UIViewController *reg = nil;
+    NSString * haveLoad = [self getPreference:kAppCurVersion];
+    UINavigationController *nav = nil;
+    if([haveLoad isEqualToString:appCurVersion])
+    {
+        SHBTabbarController *tabVC = [[SHBTabbarController alloc]init];
+        SBHNavigationController *nav = [[SBHNavigationController alloc] initWithRootViewController:tabVC];
+        return nav;
+    }
+    else
+    {
+        reg = [[BeGuidePageViewController alloc]init];
+        [self savePreference:kAppCurVersion withValue:appCurVersion];
+        nav = [[SBHNavigationController alloc] initWithRootViewController:reg];
+        return nav;
+    }
+    return nil;
+}
+/** 一些通用的方法*/
+//保存配置
+- (void)savePreference:(NSString*)key withValue:(id )value
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:value forKey:key];
+    [defaults synchronize];
+}
+
+//获取配置信息
+- (id)getPreference:(NSString*)key
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    id value =  [defaults objectForKey:key];
+    return value;
+}
+
+- (void)commonConfigure
+{
+    [self getAdPageData];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showAdPage:) name:kNotificationShowAd object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showAdPage:) name:kNotificationGuidePageDisappear object:nil];
+    NSString *str = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    str = [str stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    [GlobalData getSharedInstance].iphoneUdid = str;
+}
+- (void)getCityName
+{
+    if(self.cityName.length > 1 && self.cityName !=nil)
+    {
+        return;
+    }
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:delegate.coordinate.latitude longitude:delegate.coordinate.longitude];
+    CLGeocoder *coder = [[CLGeocoder alloc]init];
+    [coder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray< CLPlacemark *> * __nullable placemarks, NSError * __nullable error)
+     {
+         for(CLPlacemark *place in placemarks)
+         {
+             self.cityName = [[place.addressDictionary[@"City"] componentsSeparatedByString:@"市"] firstObject];
+         }
+     }];
+}
+-(void)configureAPIKey
+{
+    [AMapServices sharedServices].apiKey = (NSString *)kMAMapID;
+}
+- (void)showAdPage:(NSNotification *)noti
+{
+    UIViewController *currentController = [[AppDelegate appdelegate]getCurrentDisplayViewController];
+    if(![currentController isKindOfClass:[BeGuidePageViewController class]])
+    {
+        NSArray *imageArray = [self getPreference:kAdPageDataKey];
+       if(imageArray.count > 0)
+        {
+            NSDictionary *member = imageArray.firstObject;
+            if(![member isKindOfClass:[NSDictionary class]])
+            {
+                return;
+            }
+            if(!([[member stringValueForKey:@"img"] length] > 0 && [[member stringValueForKey:@"url"] length] > 0))
+            {
+                return;
+            }
+            //每天第一次启动的时候显示
+            NSString * haveLoad = [self getPreference:kIsAdPageShowed];
+            if(![haveLoad isEqualToString:[CommonMethod stringFromDate:[NSDate date]WithParseStr:kFormatYYYYMMDD]])
+            {
+                [self savePreference:kIsAdPageShowed withValue:[CommonMethod stringFromDate:[NSDate date]WithParseStr:kFormatYYYYMMDD]];
+                BeAdPage *demo = [BeAdPage new];
+                [demo loadLaunchImage:[imageArray firstObject]];
+            }
+        }
+    }
+}
+@end

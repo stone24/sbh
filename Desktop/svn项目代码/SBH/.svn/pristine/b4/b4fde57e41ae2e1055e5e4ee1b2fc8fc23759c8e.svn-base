@@ -1,0 +1,183 @@
+//
+//  HomeBannerView.m
+//  sbh
+//
+//  Created by RobinLiu on 15/2/1.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "HomeBannerView.h"
+#import "UIImageView+WebCache.h"
+#import "ServerConfigure.h"
+@interface HomeBannerView()<UIScrollViewDelegate>
+{
+    CGFloat bannerWidth;
+    CGFloat bannerHeight;
+    NSMutableArray *bannerArray;
+    UIScrollView *bannerScrollView;
+    NSTimer *bannerTimer;
+    UIPageControl *bannerPageControl;
+    int currentPageIndex;
+    CGFloat bannerTimeInterval;
+}
+@end
+@implementation HomeBannerView
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+- (id)initWithFrame:(CGRect)frame withImagesArray:(NSArray *)imagesArray
+{
+    
+    if(self = [super initWithFrame:frame])
+    {
+        self.userInteractionEnabled = YES;
+        bannerHeight = frame.size.height;
+        bannerWidth = frame.size.width;
+        UIImageView *placeHolerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"homepage_placeHolderImage"]];
+        placeHolerImage.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        [self addSubview:placeHolerImage];
+        if(imagesArray.count>1)
+        {
+            NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:imagesArray];
+            [tempArray insertObject:[imagesArray objectAtIndex:(imagesArray.count-1)] atIndex:0];
+            [tempArray addObject:[imagesArray objectAtIndex:0]];
+            bannerArray = [[NSMutableArray alloc]initWithArray:tempArray];
+            [self setBannerView];
+        }
+        if(imagesArray.count == 1)
+        {
+            bannerArray = [[NSMutableArray alloc]initWithArray:imagesArray];
+            UIImageView *bannerImage = [[UIImageView alloc]init];
+            bannerImage.userInteractionEnabled = YES;
+            NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kServerHost,[[bannerArray firstObject]objectForKey:@"img"]]];
+            [bannerImage sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"homepage_placeHolderImage"]];
+            bannerImage.frame = frame;
+            UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestClick:)];
+            gest.numberOfTapsRequired = 1;
+            gest.numberOfTouchesRequired = 1;
+            [bannerImage addGestureRecognizer:gest];
+            [self addSubview:bannerImage];
+            [bannerTimer invalidate];
+        }
+    }
+    return self;
+}
+- (void)setBannerView
+{
+    currentPageIndex = 1;
+    bannerScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, bannerWidth, bannerHeight)];
+    bannerScrollView.delegate = self;
+    bannerScrollView.showsHorizontalScrollIndicator = NO;
+    bannerScrollView.showsVerticalScrollIndicator = NO;
+    bannerScrollView.bounces = NO;
+    bannerScrollView.userInteractionEnabled = YES;
+    bannerScrollView.contentSize = CGSizeMake(bannerWidth*[bannerArray count], bannerHeight);
+    bannerScrollView.pagingEnabled = YES;
+    bannerScrollView.scrollsToTop = NO;
+    [self addSubview:bannerScrollView];
+    for(int i = 0;i<bannerArray.count;i++)
+    {
+        UIImageView *bannerImage = [[UIImageView alloc]initWithFrame:CGRectMake(bannerWidth*i, 0, bannerWidth, bannerHeight)];
+        bannerImage.clipsToBounds = YES;
+        NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kServerHost,[[bannerArray objectAtIndex:i]objectForKey:@"img"]]];
+        [bannerImage sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"homepage_placeHolderImage"]];
+        bannerImage.userInteractionEnabled = YES;
+        bannerImage.tag = i;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bannerImageDidClick:)];
+        [bannerImage addGestureRecognizer:tap];
+        [bannerScrollView addSubview:bannerImage];
+    }
+    [bannerScrollView setContentOffset:CGPointMake(bannerWidth, 0)];
+
+    bannerPageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(bannerWidth/2, bannerHeight- bannerHeight/5, bannerWidth/2, bannerHeight/5)];
+    bannerPageControl.numberOfPages = bannerArray.count-2;
+    bannerPageControl.currentPage = 0;
+    bannerPageControl.pageIndicatorTintColor = [UIColor blackColor];
+    bannerPageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    //[self addSubview:bannerPageControl];
+    bannerTimeInterval = 5.0f;
+    [self addTimer];
+}
+- (void)runImagePage
+{
+    int page = currentPageIndex;
+    page ++;
+    [bannerScrollView scrollRectToVisible:CGRectMake(bannerWidth *page, 0,bannerWidth,bannerHeight) animated:YES];
+    if(currentPageIndex == bannerArray.count -1)
+    {
+        [bannerScrollView setContentOffset:CGPointMake(bannerWidth, 0)];
+        bannerPageControl.currentPage = 0;
+        currentPageIndex = 1;
+    }
+}
+#pragma mark - scrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat pageWidth = bannerScrollView.frame.size.width;
+    int page = floor((bannerScrollView.contentOffset.x - pageWidth/2)/pageWidth) + 1;
+    currentPageIndex = page;
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    bannerPageControl.currentPage=currentPageIndex - 1;
+    if (currentPageIndex==0) {
+        bannerPageControl.currentPage = [bannerArray count] - 2;
+        [bannerScrollView setContentOffset:CGPointMake(([bannerArray count]-2)*bannerWidth, 0)];
+    }
+    if (currentPageIndex==([bannerArray count]-1)) {
+        
+        [bannerScrollView setContentOffset:CGPointMake(bannerWidth, 0)];
+        bannerPageControl.currentPage = 0;
+    }
+    [bannerTimer invalidate];
+    [self addTimer];
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    bannerPageControl.currentPage=currentPageIndex - 1;
+    if (currentPageIndex==0) {
+        bannerPageControl.currentPage = [bannerArray count] - 2;
+        [bannerScrollView setContentOffset:CGPointMake(([bannerArray count]-2)*bannerWidth, 0)];
+    }
+    if (currentPageIndex==([bannerArray count]-1)) {
+        
+        [bannerScrollView setContentOffset:CGPointMake(bannerWidth, 0)];
+        bannerPageControl.currentPage = 0;
+    }
+}
+- (void)addTimer
+{
+    bannerTimer = [NSTimer scheduledTimerWithTimeInterval:bannerTimeInterval target:self selector:@selector(runImagePage) userInfo:nil repeats:YES];
+}
+- (void)removeTimer
+{
+    [bannerTimer invalidate];
+}
+- (void)bannerImageDidClick:(UITapGestureRecognizer *)gest
+{
+    int tapIndex = (int)gest.view.tag;
+    if(self.delegate && [self.delegate respondsToSelector:@selector(homeBannerViewDidClick:)])
+    {
+        [self.delegate homeBannerViewDidClick:[[bannerArray objectAtIndex:tapIndex]objectForKey:@"url"]];
+    }
+}
+#pragma mark - 只有一张图片时
+- (void)tapGestClick:(id)sender
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(homeBannerViewDidClick:)])
+    {
+        [self.delegate homeBannerViewDidClick:[[bannerArray firstObject]objectForKey:@"url"]];
+    }
+}
+- (void)setTimeInterval:(CGFloat)timeInterval
+{
+    bannerTimeInterval = timeInterval;
+    [bannerTimer invalidate];
+    [self addTimer];
+}
+@end

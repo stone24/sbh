@@ -1,0 +1,15 @@
+//
+//  BeHomePageOthersCell.h
+//  sbh
+//
+//  Created by RobinLiu on 15/4/27.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+@interface WTBeHomePageOthersCell : UITableViewCell
++ (instancetype)cellWithTableView:(UITableView *)tableView;
++ (CGFloat)cellHeight;
+- (void)setCellSubviews;
+- (void)addTarget:(id)target andTicketAction:(SEL)asAction andHotelAction:(SEL)hrAction andCheckInAction:(SEL)oAction andAirDynamicAction:(SEL)dAction andFinanceAction:(SEL)fAction andPostAction:(SEL)pAction;
+@end

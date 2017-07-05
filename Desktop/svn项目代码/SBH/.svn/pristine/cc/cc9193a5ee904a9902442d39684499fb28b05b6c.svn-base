@@ -1,0 +1,47 @@
+//
+//  BeHomePlateCell.m
+//  sbh
+//
+//  Created by SBH on 15/7/9.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "BeHomePlateCell.h"
+
+@interface BeHomePlateCell () <UITextFieldDelegate>
+
+
+@end
+
+@implementation BeHomePlateCell
+
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *identifier = @"BeHomePlateCell";
+    
+    BeHomePlateCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"BeHomePlateCell" owner:nil options:nil] lastObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType  = UITableViewCellAccessoryNone;
+    }
+    
+    return cell;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.callCarBtn.layer.cornerRadius = 4.0f;
+    self.callCarBtn.backgroundColor = SBHYellowColor;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+
+
+@end

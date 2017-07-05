@@ -1,0 +1,214 @@
+//
+//  BeHomePageOthersCell.m
+//  sbh
+//
+//  Created by RobinLiu on 15/4/27.
+//  Copyright (c) 2015年 shenbianhui. All rights reserved.
+//
+
+#import "BeHomePageOthersCell.h"
+#import "CommonDefine.h"
+#import "BeHomePageInfoAndBannerCell.h"
+#import "ColorUtility.h"
+#import "BeHomePageHeightItem.h"
+
+#define isSupportFinance @"No"//是否支持理财
+
+@interface BeHomePageOthersCell()
+{
+    id _thisTarget;
+    SEL _ticketAtion;
+    SEL _hotelAction;
+    SEL _airportAction;
+    SEL _airDynamicAction;
+    SEL _financeAction;
+    SEL _visaAction;
+    SEL _trainAction;
+    SEL _specialAction;
+}
+@end
+@implementation BeHomePageOthersCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
++ (CGFloat)cellHeight
+{
+    return kScreenHeight - 49;
+}
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *identifier = @"BeHomePageOthersCellIdentifier";
+    BeHomePageOthersCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    cell = [[BeHomePageOthersCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType  = UITableViewCellAccessoryNone;
+    [cell setCellSubviews];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+
+- (void)setCellSubviews
+{
+    CGFloat startY = 0.0f;
+    CGFloat smallHeight = 0.0f;
+    CGFloat middleHeight = 0.0f;
+    CGFloat bigHeight = 0.0f;
+    CGFloat boundarySpace = 11.0f;
+    CGFloat centerSpace = 5.5f;
+    if(kIs_iPhone4||kIs_iPhone5)
+    {
+        startY = 163.0f;
+        if(kIs_iPhone4)
+        {
+            startY = 120.0f;
+        }
+        smallHeight = 53.0f;
+        middleHeight = 75.0f;
+    }
+    else
+    {
+        startY = 163.0/568.0 * kScreenHeight;
+        smallHeight = 53.0f/568.0 * kScreenHeight;
+        middleHeight = 75.0f/568.0 * kScreenHeight;
+    }
+    bigHeight = smallHeight * 2+ centerSpace;
+
+    CGFloat buttonWidth = (kScreenWidth - 27.5)/2.0;
+    NSArray *titleArray = @[@"酒店", @"火车票", @"机票", @"用车", @"摇钱树", @"机场服务", @"航班动态", @"会议"];
+    NSArray *iconImage = @[@"homepage_hotel", @"homepage_train", @"homepage_ticket", @"homepage_car", @"homepage_finance", @"homepage_airport", @"homepage_airdynamics", @"homepage_huiyi"];
+    int count = (int)titleArray.count;
+    int j = 0;
+    for (int i = 0; i<count; i++)
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = [UIColor blackColor];
+        btn.layer.cornerRadius = 2.0f;
+        btn.alpha = 0.35f;
+        if(i == 0 || i == 1 || i == 4|| i == 5)
+        {
+            btn.frame = CGRectMake(boundarySpace + (i/4)*(buttonWidth +centerSpace), startY +(smallHeight + centerSpace)*j , buttonWidth, smallHeight);
+            j ++;
+        }
+        else if (i == 2 || i == 3)
+        {
+            btn.frame = CGRectMake(i==2?(boundarySpace + buttonWidth +centerSpace):boundarySpace, i==2?startY:(startY+ centerSpace+ bigHeight) , buttonWidth, bigHeight);
+        }
+        else if (i == 6 || i == 7 )
+        {
+            btn.frame = CGRectMake(boundarySpace + (i/7)*(buttonWidth +centerSpace), startY +(bigHeight + centerSpace)*2 , buttonWidth, middleHeight);
+        }
+        btn.tag = i;
+        [self setButtonTitleAndImageWith:btn andImageArray:iconImage andTitleArray:titleArray];
+        [btn addTarget:self action:@selector(detailAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btn];
+    }
+}
+- (void)setButtonTitleAndImageWith:(UIButton *)sender andImageArray:(NSArray *)iconArray andTitleArray:(NSArray *)titleArray
+{
+   /* UIView *btnBgView = [[UIView alloc]initWithFrame:CGRectMake(1, 1, sender.width -2, sender.height - 2)];
+    btnBgView.backgroundColor = [UIColor blackColor];
+    btnBgView.layer.cornerRadius = 2.0f;
+    btnBgView.alpha = 0.35f;
+    btnBgView.userInteractionEnabled = YES;
+    [sender addSubview:btnBgView];*/
+    
+    int i = (int)sender.tag;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 22)];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    titleLabel.text = [titleArray objectAtIndex:i];
+    titleLabel.alpha = 1.0f;
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[iconArray objectAtIndex:i]]];
+    imageView.alpha = 1.0f;
+    if(i == 0 || i == 1 || i == 4|| i == 5)
+    {
+        imageView.centerY = sender.height/2.0;
+        titleLabel.centerY = sender.height/2.0;
+        titleLabel.x = 130 / 292.0f * sender.width;
+        imageView.x = titleLabel.x - imageView.size.width - 10;
+        titleLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    else
+    {
+        imageView.centerX = sender.width/2.0;
+        titleLabel.centerX = sender.width/2.0;
+        titleLabel.y = sender.height/2.0 + 6;
+        imageView.y = sender.height/2.0  - imageView.size.height - 6;
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    [sender addSubview:titleLabel];
+    [sender addSubview:imageView];
+}
+- (void)buttonActionWith:(UIButton *)sender
+{
+    if(sender.tag == 0)
+    {
+        [_thisTarget performSelector:_hotelAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag ==1)
+    {
+        [_thisTarget performSelector:_trainAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 2)
+    {
+        [_thisTarget performSelector:_ticketAtion withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 3)
+    {
+        [_thisTarget performSelector:_specialAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 4)
+    {
+        [_thisTarget performSelector:_financeAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 5)
+    {
+        [_thisTarget performSelector:_airportAction withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 6)
+    {
+        [_thisTarget performSelector:_airDynamicAction  withObject:nil afterDelay:0];
+    }
+    else if (sender.tag == 7)
+    {
+        [_thisTarget performSelector:_visaAction withObject:nil afterDelay:0];
+    }
+    [UIView animateWithDuration:10.0 animations:^{
+    }completion:^(BOOL finished)
+     {
+         sender.alpha = 0.35;
+         sender.transform = CGAffineTransformMakeScale(1.0, 1.0);
+     }];
+}
+- (void)detailAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:.15 animations:^{
+        sender.transform = CGAffineTransformMakeScale(0.97, 0.97);
+        sender.alpha = 0.5;
+    }completion:^(BOOL finished)
+     {
+         [self buttonActionWith:sender];
+     }];
+}
+- (void)addTarget:(id)target andTicketAction:(SEL)asAction andHotelAction:(SEL)hrAction andAirportAction:(SEL)airportAction andAirDynamicAction:(SEL)dAction andTrainAction:(SEL)trainAction andvisaAction:(SEL)visaAction andSpecialAction:(SEL)speAction andInvestAction:(SEL)investAction
+{
+    _thisTarget = target;
+    _ticketAtion = asAction;
+    _hotelAction = hrAction;
+    _visaAction = visaAction;
+    _airDynamicAction = dAction;
+    _financeAction = investAction;
+    _trainAction = trainAction;
+    _specialAction = speAction;
+    _airportAction = airportAction;
+}
+@end
